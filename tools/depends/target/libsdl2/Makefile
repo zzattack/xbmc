@@ -1,9 +1,9 @@
 include ../../Makefile.include
-DEPS= ../../Makefile.include 01-SDL_SetWidthHeight.patch 02-OSX_interpretKeyEvents.patch 03-mavericks-compile.patch 05-x11-xdata32.patch Makefile
+DEPS= ../../Makefile.include Makefile
 
 # lib name, version
-LIBNAME=SDL
-VERSION=1.2.15
+LIBNAME=SDL2
+VERSION=2.0.3
 SOURCE=$(LIBNAME)-$(VERSION)
 ARCHIVE=$(SOURCE).tar.gz
 
@@ -23,16 +23,11 @@ $(TARBALLS_LOCATION)/$(ARCHIVE):
 $(PLATFORM): $(TARBALLS_LOCATION)/$(ARCHIVE) $(DEPS)
 	rm -rf $(PLATFORM); mkdir -p $(PLATFORM)
 	cd $(PLATFORM); $(ARCHIVE_TOOL) $(ARCHIVE_TOOL_FLAGS) $(TARBALLS_LOCATION)/$(ARCHIVE)
-	cd $(PLATFORM); patch -p0 < ../01-SDL_SetWidthHeight.patch
-	cd $(PLATFORM); patch -p0 < ../02-OSX_interpretKeyEvents.patch
-	cd $(PLATFORM); patch -p0 < ../03-mavericks-compile.patch
-	cd $(PLATFORM); patch -p0 < ../04-fix_external_screen_crash.patch
-	cd $(PLATFORM); patch -p1 < ../05-x11-xdata32.patch
 	cd $(PLATFORM); ./autogen.sh
 	cd $(PLATFORM); $(CONFIGURE)
 
 $(LIBDYLIB): $(PLATFORM)
-	$(MAKE) -j 1 -C $(PLATFORM)
+	$(MAKE) -C $(PLATFORM)
 
 .installed-$(PLATFORM): $(LIBDYLIB)
 	$(MAKE) -C $(PLATFORM) install

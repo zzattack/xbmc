@@ -30,7 +30,7 @@ ifeq ($(OS),ios)
 endif
 
 ifeq ($(OS),osx)
-  DEPENDS += libGLEW libsdl
+  DEPENDS += libGLEW libsdl2
   EXCLUDED_DEPENDS = libusb gmp nettle gnutls
 endif
 
@@ -58,7 +58,7 @@ LINUX_SYSTEM_LIBS=
 ifeq ($(OS),linux)
   #not for raspberry pi
   ifneq ($(TARGET_PLATFORM),raspberry-pi)
-    DEPENDS += alsa-lib libsdl linux-system-libs
+    DEPENDS += alsa-lib libsdl2 linux-system-libs
     ALSA_LIB = alsa-lib
     LINUX_SYSTEM_LIBS = linux-system-libs
   endif
@@ -97,7 +97,7 @@ openssl: $(ZLIB)
 gnutls: nettle $(ZLIB)
 nettle: gmp
 pythonmodule-pil: $(ZLIB) libjpeg-turbo libpng freetype2 python26
-libsdl: $(LINUX_SYSTEM_LIBS)
+libsdl2: $(LINUX_SYSTEM_LIBS)
 libxslt: libgcrypt
 ffmpeg: $(ICONV) $(ZLIB) bzip2 libvorbis $(FFMPEG_DEPENDS)
 
