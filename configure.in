@@ -1221,7 +1221,7 @@ fi
     PKG_CHECK_MODULES([SDL],   [sdl2],
       [INCLUDES="$INCLUDES $SDL_CFLAGS"; LIBS="$LIBS $SDL_LIBS"],
       AC_MSG_ERROR($missing_library))
-    AC_CHECK_LIB([SDL2_image],  [main],, AC_MSG_ERROR($missing_library))
+    AC_CHECK_LIB([SDL_image],  [main],, AC_MSG_ERROR($missing_library))
     AC_DEFINE([HAVE_SDL],[1],["Define to 1 if using sdl"])
   fi
 fi
